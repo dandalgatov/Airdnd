@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  address: MyString
+  apt_num: MyString
+  zip: MyString
+  beds: 1.5
+  baths: 1.5
+  sqft: 1.5
+  rent: 1.5
+  security_deposit: 1.5
+  fee: 1.5
+  description: MyText
+  published: false
+  user: one
+  neighborhood: one
+
+two:
+  address: MyString
+  apt_num: MyString
+  zip: MyString
+  beds: 1.5
+  baths: 1.5
+  sqft: 1.5
+  rent: 1.5
+  security_deposit: 1.5
+  fee: 1.5
+  description: MyText
+  published: false
+  user: two
+  neighborhood: two
