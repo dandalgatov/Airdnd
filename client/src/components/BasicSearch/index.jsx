@@ -1,149 +1,145 @@
-import React, { useState } from 'react';
-import 'antd/dist/antd.css';
-import { Select, Button } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import React, { useState } from 'react'
+import { Form } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css'
 
-const { Option } = Select;
 
-// const [count, setCount] = useState(0);
 
-function onChange(value) {
-    console.log(`selected ${value}`);
-}
+export default function BasicSearch(props) {
 
-function onBlur() {
-    console.log('blur');
-}
+    const { neighborhoodOptions } = props
+    const [search, setSearch] = useState({})
 
-function onFocus() {
-    console.log('focus');
-}
+    const rentOptions = [
+        { text: '$500', value: '500' },
+        { text: '$750', value: '750' },
+        { text: '$1,000', value: '1000' },
+        { text: '$1,250', value: '1250' },
+        { text: '$1,500', value: '1500' },
+        { text: '$1,750', value: '1750' },
+        { text: '$2,000', value: '2000' },
+        { text: '$2,500', value: '2500' },
+        { text: '$3,000', value: '3000' },
+        { text: '$3,500', value: '3500' },
+        { text: '$4,000', value: '4000' },
+        { text: '$4,500', value: '4500' },
+        { text: '$5,000', value: '5000' },
+        { text: '$6,000', value: '6000' },
+        { text: '$7,000', value: '7000' },
+        { text: '$8,000', value: '8000' },
+        { text: '$9,000', value: '9000' },
+        { text: '$10,000', value: '10000' },
+        { text: '$12,500', value: '12500' },
+        { text: '$15,000', value: '15000' },
+    ]
 
-function onSearch(val) {
-    console.log('search:', val);
-}
+    const bedOptions = [
+        { text: 'Studio', value: '0' },
+        { text: '1 Bed', value: '1' },
+        { text: '2 Bed', value: '2' },
+        { text: '3 Bed', value: '3' },
+        { text: '4 Bed', value: '4' },
+        { text: '5 Bed', value: '5' },
+    ]
 
-export default function BasicSearch() {
+    const handleChange = (e, data) => {
+        setSearch({
+            ...search,
+            [data.name]: data.value
+        })
+    }
+
     return (
-        <div style={{display: "flex", flexFlow: "row wrap", justifyContent: "space-evenly"}}>
-            <Select
-                showSearch
-                style={{ width: 200 }}
-                placeholder="Neighborhood"
-                optionFilterProp="children"
-                onChange={onChange}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                onSearch={onSearch}
-                filterOption={(input, option) =>
-                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
-            >
-                <Option value="Battery Park City">Battery Park City</Option>
-                <Option value="Chelsea">Chelsea</Option>
-                <Option value="Chinatown">Chinatown</Option>
-                <Option value="Civic Center">Civic Center</Option>
-                <Option value="East Village">East Village</Option>
-                <Option value="Financial District">Financial District</Option>
-                <Option value="Flatiron">Flatiron</Option>
-                <Option value="Gramercy Park">Gramercy Park</Option>
-                <Option value="Greenwich Village">Greenwich Village</Option>
-                <Option value="Little Italy">Little Italy</Option>
-                <Option value="Lower East Side">Lower East Side</Option>
-                <Option value="Nolita">Nolita</Option>
-                <Option value="Stuyvesant Town">Stuyvesant Town</Option>
-                <Option value="Tribeca">Tribeca</Option>
-                <Option value="West Village">West Village</Option>
-                <Option value="Central Park South">Central Park South</Option>
-                <Option value="Midtown">Midtown</Option>
-                <Option value="Midtown East">Midtown East</Option>
-                <Option value="Kips Bay">Kips Bay</Option>
-                <Option value="Murray Hill">Murray Hill</Option>
-                <Option value="Sutton Place">Sutton Place</Option>
-                <Option value="Turtle Bay">Turtle Bay</Option>
-                <Option value="Midtown South">Midtown South</Option>
-                <Option value="Hell's Kitchen">Hell's Kitchen</Option>
-                <Option value="Hudson Yards">Hudson Yards</Option>
-                <Option value="Upper East Side">Upper East Side</Option>
-                <Option value="Carnegie Hill">Carnegie Hill</Option>
-                <Option value="Lenox Hill">Lenox Hill</Option>
-                <Option value="Yorkville">Yorkville</Option>
-                <Option value="Central Harlem">Central Harlem</Option>
-                <Option value="South Harlem">South Harlem</Option>
-                <Option value="East Harlem">East Harlem</Option>
-                <Option value="Hamilton Heights">Hamilton Heights</Option>
-                <Option value="Inwood">Inwood</Option>
-                <Option value="Marble Hill">Marble Hill</Option>
-            </Select>
+        <Form>
+            <Form.Group widths='equal'>
+                <Form.Select
+                    fluid
+                    name="neighborhood_id"
+                    options={neighborhoodOptions}
+                    placeholder='Neighborhoods'
+                    onChange={handleChange}
+                />
+                <Form.Select
+                    fluid
+                    name="min_rent"
+                    options={rentOptions}
+                    placeholder='$Minimum'
+                    onChange={handleChange}
+                />
+                <Form.Select
+                    fluid
+                    name="max_rent"
+                    options={rentOptions}
+                    placeholder='$Maximum'
+                    onChange={handleChange}
+                />
+                <Form.Select
+                    fluid
+                    name="min_beds"
+                    options={bedOptions}
+                    placeholder='Min Beds'
+                    onChange={handleChange}
+                />
+                <Form.Select
+                    fluid
+                    name="max_beds"
+                    options={bedOptions}
+                    placeholder='Max Beds'
+                    onChange={handleChange}
+                />
+                <Form.Button>Advanced</Form.Button>
+                <Form.Button>Submit</Form.Button>
+            </Form.Group>
 
-            <Select placeholder="$Minimum" style={{ width: 120 }} onChange={onChange}>
-                <Option value="$500">$500</Option>
-                <Option value="$750">$750</Option>
-                <Option value="$1,000">$1,000</Option>
-                <Option value="$1,250">$1,250</Option>
-                <Option value="$1,500">$1,500</Option>
-                <Option value="$1,750">$1,750</Option>
-                <Option value="$2,000">$2,000</Option>
-                <Option value="$2,500">$2,500</Option>
-                <Option value="$3,000">$3,000</Option>
-                <Option value="$3,500">$3,500</Option>
-                <Option value="$4,000">$4,000</Option>
-                <Option value="$4,500">$4,500</Option>
-                <Option value="$5,000">$5,000</Option>
-                <Option value="$6,000">$6,000</Option>
-                <Option value="$7,000">$7,000</Option>
-                <Option value="$8,000">$8,000</Option>
-                <Option value="$9,000">$9,000</Option>
-                <Option value="$10,000">$10,000</Option>
-                <Option value="$12,500">$12,500</Option>
-                <Option value="$15,000">$15,000</Option>
-            </Select>
-
-            <Select placeholder="$Maximum" style={{ width: 120 }} onChange={onChange}>
-                <Option value="$500">$500</Option>
-                <Option value="$750">$750</Option>
-                <Option value="$1,000">$1,000</Option>
-                <Option value="$1,250">$1,250</Option>
-                <Option value="$1,500">$1,500</Option>
-                <Option value="$1,750">$1,750</Option>
-                <Option value="$2,000">$2,000</Option>
-                <Option value="$2,500">$2,500</Option>
-                <Option value="$3,000">$3,000</Option>
-                <Option value="$3,500">$3,500</Option>
-                <Option value="$4,000">$4,000</Option>
-                <Option value="$4,500">$4,500</Option>
-                <Option value="$5,000">$5,000</Option>
-                <Option value="$6,000">$6,000</Option>
-                <Option value="$7,000">$7,000</Option>
-                <Option value="$8,000">$8,000</Option>
-                <Option value="$9,000">$9,000</Option>
-                <Option value="$10,000">$10,000</Option>
-                <Option value="$12,500">$12,500</Option>
-                <Option value="$15,000">$15,000</Option>
-            </Select>
-
-            <Select placeholder="Min Size" style={{ width: 120 }} onChange={onChange}>
-                <Option value="Studio">Studio</Option>
-                <Option value="1 Bed">1 Bed</Option>
-                <Option value="2 Bed">2 Bed</Option>
-                <Option value="3 Bed">3 Bed</Option>
-                <Option value="4+ Bed">4+ Bed</Option>
-            </Select>
-
-            <Select placeholder="Max Size" style={{ width: 120 }} onChange={onChange}>
-                <Option value="Studio">Studio</Option>
-                <Option value="1 Bed">1 Bed</Option>
-                <Option value="2 Bed">2 Bed</Option>
-                <Option value="3 Bed">3 Bed</Option>
-                <Option value="4+ Bed">4+ Bed</Option>
-            </Select>
-
-            <Button type="primary" ghost >Advanced</Button>
-
-            <Button type="primary" icon={<SearchOutlined />}>
-                Search
-            </Button>
-
-        </div>
+        </Form>
     )
 }
+
+
+
+// class FormExampleSubcomponentControl extends Component {
+//     state = {}
+
+//     handleChange = (e, { value }) => this.setState({ value })
+
+//     render() {
+//         const { value } = this.state //??
+//         return (
+//             <Form>
+//                 <Form.Group widths='equal'>
+//                     <Form.Input fluid label='First name' placeholder='First name' />
+//                     <Form.Input fluid label='Last name' placeholder='Last name' />
+//                     <Form.Select
+//                         fluid
+//                         label='Gender'
+//                         options={options}
+//                         placeholder='Gender'
+//                     />
+//                 </Form.Group>
+//                 <Form.Group inline>
+//                     <label>Size</label>
+//                     <Form.Radio
+//                         label='Small'
+//                         value='sm'
+//                         checked={value === 'sm'}
+//                         onChange={this.handleChange}
+//                     />
+//                     <Form.Radio
+//                         label='Medium'
+//                         value='md'
+//                         checked={value === 'md'}
+//                         onChange={this.handleChange}
+//                     />
+//                     <Form.Radio
+//                         label='Large'
+//                         value='lg'
+//                         checked={value === 'lg'}
+//                         onChange={this.handleChange}
+//                     />
+//                 </Form.Group>
+//                 <Form.TextArea label='About' placeholder='Tell us more about you...' />
+//                 <Form.Checkbox label='I agree to the Terms and Conditions' />
+//                 <Form.Button>Submit</Form.Button>
+//             </Form>
+//         )
+//     }
+// }

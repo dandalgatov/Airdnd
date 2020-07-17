@@ -5,6 +5,11 @@ export const getListings = async () => {
     return response.data
 }
 
+export const getNeighborhoods = async () => {
+    const response = await api.get('/neighborhoods')
+    return response.data
+}
+
 // export const getBooks = async (id) => {
 //     const response = await api.get(`/authors/${id}/books`)
 //     return response.data
