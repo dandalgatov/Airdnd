@@ -13,16 +13,53 @@ class ListingsController < ApplicationController
     render json: @listing, include: [:neighborhood, :amenities, :images, :user], except: [:user_id, :neighborhood_id]
   end
 
-  # GET /neighborhood/1/listings/
+  # GET /neighborhoods/1/listings/
   def show_by_neighborhood
     @neighborhood_listings = Listing.where(neighborhood_id: params[:neighborhood_id])
     render json: @neighborhood_listings, include: [:neighborhood, :amenities, :images, :user], except: [:user_id, :neighborhood_id]
   end
 
-  # GET /user/listings/
+  # GET /listings/search
   def show_by_user
     @user_listings = Listing.where(user_id: params[:user_id])
     render json: @user_listings, include: [:neighborhood, :amenities, :images, :user], except: [:user_id, :neighborhood_id]
+  end
+
+  def search
+
+    @conditions = []
+
+    if params[:neighborhood_id].present?
+      @conditions.push("listings.neighborhood_id = #{params[:neighborhood_id]}")
+      
+    end
+
+    if params[:min_rent].present?
+      @conditions.push("listings.rent >= #{params[:min_rent]}")
+      
+    end
+
+    if params[:max_rent].present?
+      @conditions.push("listings.rent <= #{params[:max_rent]}")
+      
+    end
+
+    if params[:min_beds].present?
+      @conditions.push("listings.beds >= #{params[:min_beds]}")
+      
+    end
+
+    if params[:max_beds].present?
+      @conditions.push("listings.beds <= #{params[:max_beds]}")
+      
+    end
+
+   
+
+    @search_results = Listing.where(@conditions.join(" AND "))
+
+    render json: @search_results, include: [:neighborhood, :amenities, :images, :user], except: [:user_id, :neighborhood_id]
+
   end
 
   # POST /users/1/neighborhoods/1/listings/
@@ -59,6 +96,23 @@ class ListingsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def listing_params
-      params.require(:listing).permit(:address, :apt_num, :zip, :beds, :baths, :sqft, :rent, :security_deposit, :fee, :description, :published, :user_id, :neighborhood_id)
+      params.require(:listing).permit(
+        :address, 
+        :apt_num, 
+        :zip, 
+        :beds,
+        :min_beds,
+        :max_beds,
+        :baths, 
+        :sqft, 
+        :rent,
+        :min_rent,
+        :max_rent,
+        :security_deposit, 
+        :fee, 
+        :description, 
+        :published, 
+        :user_id, 
+        :neighborhood_id)
     end
 end
