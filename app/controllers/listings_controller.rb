@@ -54,8 +54,6 @@ class ListingsController < ApplicationController
       
     end
 
-   
-
     @search_results = Listing.where(@conditions.join(" AND "))
 
     render json: @search_results, include: [:neighborhood, :amenities, :images, :user], except: [:user_id, :neighborhood_id]
