@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useHistory } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,7 +7,7 @@ import {
 import { Container, Divider } from 'semantic-ui-react'
 
 import { verifyUser } from './services/auth'
-import { getUserListings } from './services/api'
+
 
 import Home from './screens/Home'
 import AddListing from './screens/AddListing'
@@ -24,14 +24,14 @@ export default function App() {
   const [neighborhoods, setNeighborhoods] = useState([])
 
   const [currentUser, setCurrentUser] = useState()
-  const [userListings, setUserListings] = useState()
+  const [editListingData, setEditListingData] = useState()
 
 
 
   useEffect(() => {
     (async () => {
-      setCurrentUser(await verifyUser())
-      currentUser && setUserListings(await getUserListings(currentUser && currentUser.id))
+      // setCurrentUser(await verifyUser())
+      const user = (await verifyUser())
       const neighborhoodsData = await getNeighborhoods()
       const allNeighborhoods = []
       neighborhoodsData && neighborhoodsData.map(neighborhood =>
@@ -44,7 +44,6 @@ export default function App() {
     })()
   }, [])
 
-console.log(currentUser && currentUser.id)
 
   return (
     <>
@@ -69,24 +68,33 @@ console.log(currentUser && currentUser.id)
               basicSearchResults={basicSearchResults}
             />} />
 
+          <Route exact path="/listings/add" render={() =>
+            <AddListing
+              neighborhoodOptions={neighborhoods}
+              currentUser={currentUser}
+            />} />
+          
+          <Route exact path="/listings/edit/:id" render={() =>
+            <AddListing
+              neighborhoodOptions={neighborhoods}
+              currentUser={currentUser}
+            />} />
+          
+          
+          
+          
           <Route exact path="/listings/:id" render={() =>
             <ListingDetails
               setBasicSearchResults={setBasicSearchResults}
               basicSearchResults={basicSearchResults}
             />} />
 
-          <Route exact path="/listing/add" render={() =>
-            <AddListing
-              neighborhoodOptions={neighborhoods}
-              currentUser={currentUser}
-            />} />
+          
 
           <Route exact path="/profile" render={() =>
             <UserProfile
               currentUser={currentUser && currentUser} 
               setCurrentUser={setCurrentUser}
-              userListings={userListings}
-              setUserListings={setUserListings}
             />} />
         </Switch>
       </Container>

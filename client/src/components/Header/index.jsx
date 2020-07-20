@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Input, Menu, Dropdown, Segment, Icon, Image, Button, Modal, Form, Divider } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import { LogoIcon } from '../../assets/logo_icon.svg'

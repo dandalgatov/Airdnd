@@ -8,7 +8,7 @@ export default function SearchResults(props) {
     const [searchResultsLength, setSearchResultsLength] = useState(50)
 
     return (
-        <Card.Group itemsPerRow={2} stackable doubling centered>
+        <Card.Group itemsPerRow={4} stackable doubling centered>
             {basicSearchResults && basicSearchResults.slice(0, searchResultsLength).map((r, index) => {
                 return <ListingCard
                     id={r.id}

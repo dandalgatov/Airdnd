@@ -31,6 +31,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
+    puts @current_user.id
     if @current_user.id == params[:id]
       if @user.update(user_params)
       render json: @user

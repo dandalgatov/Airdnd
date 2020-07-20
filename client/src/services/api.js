@@ -17,20 +17,23 @@ export const getListing = async (id) => {
     return response.data
 }
 
-export const getListings = async () => {
-    const response = await api.get('/listings')
-    return response.data
-}
-
 export const getUserListings = async (id) => {
     const response = await api.get(`/users/${id}/listings`)
-    console.log(response.data)
     return response.data
 }
 
 export const createListing = async (listingData) => {
-    const response = await api.get('/listings', listingData)
-    console.log(listingData)
+    const response = await api.post('/listings', listingData)
+    return response.data
+}
+
+export const editListing = async (id, listingData) => {
+    const response = await api.put(`/listings/${id}`, listingData)
+    return response.data
+}
+
+export const deleteListing = async (id) => {
+    const response = await api.delete(`/listings/${id}`)
     return response.data
 }
 
