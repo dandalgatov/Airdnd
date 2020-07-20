@@ -48,10 +48,62 @@ Neighborhood.create!(name: 'Inwood')
 Neighborhood.create!(name: 'Marble Hill')
 
 @amenity = Amenity.create!(name: 'Pets Allowed', category: 'Building')
+Amenity.create!(name: 'Laundry in Building', category: 'Building')
+Amenity.create!(name: 'Elevator', category: 'Building')
+Amenity.create!(name: 'Gym', category: 'Building')
+Amenity.create!(name: 'Swimming Pool', category: 'Building')
+Amenity.create!(name: 'Doorman', category: 'Building')
+Amenity.create!(name: 'Pied-a-Terre Allowed', category: 'Building')
+Amenity.create!(name: 'Parking Available', category: 'Building')
+Amenity.create!(name: 'Garage Parking', category: 'Building')
+
+Amenity.create!(name: 'Washer/Dryer In-Unit', category: 'Listing')
+Amenity.create!(name: 'Dishwasher', category: 'Listing')
+Amenity.create!(name: 'Furnished', category: 'Listing')
+Amenity.create!(name: 'Outdoor Space', category: 'Listing')
+Amenity.create!(name: 'Storage Available', category: 'Listing')
+Amenity.create!(name: 'Fireplace', category: 'Listing')
+Amenity.create!(name: 'Loft', category: 'Listing')
+Amenity.create!(name: 'Sublet', category: 'Listing')
+Amenity.create!(name: 'Guarantors Accepted', category: 'Listing')
 
 
+@user = User.create!(first_name: 'Dan', last_name: 'Dalgatov', profile_picture: 'https://image.shutterstock.com/image-photo/picture-confused-young-man-dressed-260nw-553535785.jpg', phone: '555-555-5555', rating: 2,  email: 'user@email.com', password: '123456')
+@listing = Listing.create!(address: '60 Riverside Boulevard', apt_num: '912', zip: '10069', beds: 1, baths: 2, sqft: 1199, rent: 1000, published: true, user_id: @user.id, neighborhood_id: @neighborhood.id)
 
-@user = User.create!(first_name: 'user', email: 'user@email.com', password: '123456')
-@listing = Listing.create!(address: '60 Riverside Boulevard', apt_num: '912', zip: '10069', beds: 2, baths: 2, sqft: 1199, rent: 6655, published: true, user_id: @user.id, neighborhood_id: @neighborhood.id)
+Listing.create!(address: '60 Riverside Boulevard', apt_num: '913', zip: '10069', beds: 2, baths: 2, sqft: 1199, rent: 2000, published: true, user_id: @user.id, neighborhood_id: @neighborhood.id)
+
+Listing.create!(address: '60 Riverside Boulevard', apt_num: '914', zip: '10069', beds: 3, baths: 2, sqft: 1199, rent: 3000, published: true, user_id: @user.id, neighborhood_id: @neighborhood.id)
+
+Listing.create!(address: '60 Riverside Boulevard', apt_num: '915', zip: '10069', beds: 4, baths: 2, sqft: 1199, rent: 4000, published: true, user_id: @user.id, neighborhood_id: @neighborhood.id)
+
+Listing.create!(address: '60 Riverside Boulevard', apt_num: '916', zip: '10069', beds: 5, baths: 2, sqft: 1199, rent: 5000, published: true, user_id: @user.id, neighborhood_id: @neighborhood.id)
+
+Listing.create!(address: '60 Riverside Boulevard', apt_num: '917', zip: '10069', beds: 6, baths: 2, sqft: 1199, rent: 6000, published: true, user_id: @user.id, neighborhood_id: @neighborhood.id)
+
+
 @image = Image.create!(url: 'https://imgur.com/WVVgqRR.png', listing_id: @listing.id)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: @listing.id)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: @listing.id)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: @listing.id)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: @listing.id)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: @listing.id)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: @listing.id)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: 2)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: 2)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: 2)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: 2)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: 2)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: 2)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: 3)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: 3)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: 3)
+Image.create!(url: 'https://picsum.photos/300/200', listing_id: 3)
+
+
+
+
+
+
+
 @listing.amenities<<@amenity

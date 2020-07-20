@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
   resources :users 
   resources :neighborhoods 
+  resources :amenities
   resources :listings do
     resources :images
-    resources :amenities
   end
 
 
-  post '/users/:user_id/neighborhoods/:neighborhood_id/listings/', to: 'listings#create'
   get '/users/:user_id/listings/', to: 'listings#show_by_user'
   get '/neighborhoods/:neighborhood_id/listings/', to: 'listings#show_by_neighborhood'
 

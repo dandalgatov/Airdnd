@@ -1,11 +1,20 @@
 import React, { useState } from 'react'
-import { Input, Menu, Dropdown, Segment, Icon, Image } from 'semantic-ui-react'
+import { useHistory, Link } from 'react-router-dom'
+import { Input, Menu, Dropdown, Segment, Icon, Image, Button, Modal, Form, Divider } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import { LogoIcon } from '../../assets/logo_icon.svg'
+import SignIn from '../../components/SignIn'
+import { removeToken } from  '../../services/auth'
 
-export default function Header() {
+export default function Header(props) {
 
+    const { currentUser, setCurrentUser } = props
     const [search, setSearch] = useState()
+    const history = useHistory()
+
+    const viewProfile = () => {
+        history.push('/profile')
+    }
 
     const handleChange = (e, data) => {
         setSearch({
@@ -14,11 +23,21 @@ export default function Header() {
         })
     }
 
-    const trigger = (
-        <span>
-            <Image avatar src='https://picsum.photos/300/200' />
-        </span>
-    )
+    const handleSignOut = () => {
+        setCurrentUser(null)
+        localStorage.removeItem('authToken');
+        removeToken();
+        history.push('/')
+    }
+
+    // const trigger = (
+    //     <span>
+    //         {currentUser.profile_picture ?
+    //             <Image avatar src={currentUser.profile_picture} /> :
+    //             <Icon name='user circle' />
+    //         }
+    //     </span>
+    // )
 
     const options = [
         { key: 'user', text: 'Account', icon: 'user' },
@@ -29,12 +48,12 @@ export default function Header() {
     return (
 
         <div>
-            <Menu attached='top' color='red' >
-                {/* <Icon name='home' color='teal' size='huge' /> */}
-                <Icon.Group size='huge'>
-                    <Icon name='home' color='teal'  />
-                    <Icon corner name='heart' size='small' color='red'/>
-                </Icon.Group>
+            <Menu secondary attached='top' color='purple' inverted >
+
+                <Button image>
+                    <Image src={process.env.PUBLIC_URL + '/airdnd_logo.png'} size='mini' />
+                </Button>
+
 
 
 
@@ -45,20 +64,30 @@ export default function Header() {
                             name='address_search'
                             onChange={handleChange}
                             placeholder='address'
+                            size='small'
                         />
                     </Menu.Item>
-                    <Dropdown item trigger={trigger} size='big' fitted simple>
-                        <Dropdown.Menu >
-                            <Dropdown.Item>
-                                <Icon name='user circle' />
-                                <span className='text'>Profile</span>
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                <Icon name='sign-out' />
-                                <span className='text'>Sign Out</span>
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    {currentUser ?
+                        <Dropdown item size='big' 
+                            trigger={
+                                currentUser.profile_picture ?
+                                <Image avatar src={currentUser.profile_picture} /> :
+                                <Icon name='user circle' size='large'/>
+                            }
+                        >
+                            <Dropdown.Menu >
+                                <Dropdown.Item onClick={viewProfile}>
+                                    <Icon name='user circle' />
+                                    <span className='text'>Profile</span>
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={handleSignOut}>
+                                    <Icon name='sign-out' />
+                                    <span className='text'>Sign Out</span>
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown> :
+                        <SignIn currentUser={currentUser} setCurrentUser={setCurrentUser}/> 
+                    }
                     {/* <Dropdown
                         trigger={trigger}
                         options={options}

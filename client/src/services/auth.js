@@ -1,6 +1,6 @@
 import api from './apiconfig'
 
-export const loginUser = async (loginData) => {
+export const signInUser = async (loginData) => {
   const resp = await api.post('/auth/login', { authentication: loginData })
   localStorage.setItem('authToken', resp.data.token);
   api.defaults.headers.common.authorization = `Bearer ${resp.data.token}`
@@ -21,5 +21,11 @@ export const verifyUser = async () => {
     const resp = await api.get('/auth/verify');
     return resp.data
   }
-  return false
+  return null
+}
+
+
+
+export const removeToken = () => {
+  api.defaults.headers.common.authorization = null
 }

@@ -32,10 +32,11 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @current_user.id == params[:id]
-    if @user.update(user_params)
+      if @user.update(user_params)
       render json: @user
-    else
+      else
       render json: @user.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -52,6 +53,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :phone, :email, :rating, :password)
+      params.require(:user).permit(:first_name, :last_name, :profile_picture, :phone, :email, :rating, :password)
     end
 end

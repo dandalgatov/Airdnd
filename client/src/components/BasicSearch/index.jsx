@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
-import { Form } from 'semantic-ui-react'
+import { Link , useHistory} from 'react-router-dom'
+import { Form, Button } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
+import { getSearchResults } from '../../services/api'
 
 
 
 export default function BasicSearch(props) {
 
-    const { neighborhoodOptions } = props
-    const [search, setSearch] = useState({})
+    const { neighborhoodOptions, setBasicSearchResults } = props
+    const [basicSearch, setBasicSearch] = useState({})
+
+    const history = useHistory()
 
     const rentOptions = [
         { text: '$500', value: '500' },
@@ -42,16 +46,26 @@ export default function BasicSearch(props) {
     ]
 
     const handleChange = (e, data) => {
-        setSearch({
-            ...search,
+        setBasicSearch({
+            ...basicSearch,
             [data.name]: data.value
         })
     }
 
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        setBasicSearchResults(await getSearchResults(basicSearch))
+        console.log(await getSearchResults(basicSearch))
+        history.push("/search_results")
+
+    }
+
+
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Form.Group widths='equal'>
                 <Form.Select
+                    width={6}
                     fluid
                     name="neighborhood_id"
                     options={neighborhoodOptions}
@@ -59,6 +73,7 @@ export default function BasicSearch(props) {
                     onChange={handleChange}
                 />
                 <Form.Select
+                    width={4}
                     fluid
                     name="min_rent"
                     options={rentOptions}
@@ -66,6 +81,7 @@ export default function BasicSearch(props) {
                     onChange={handleChange}
                 />
                 <Form.Select
+                    width={4}
                     fluid
                     name="max_rent"
                     options={rentOptions}
@@ -73,6 +89,7 @@ export default function BasicSearch(props) {
                     onChange={handleChange}
                 />
                 <Form.Select
+                    width={4}
                     fluid
                     name="min_beds"
                     options={bedOptions}
@@ -80,66 +97,18 @@ export default function BasicSearch(props) {
                     onChange={handleChange}
                 />
                 <Form.Select
+                    width={4}
                     fluid
                     name="max_beds"
                     options={bedOptions}
                     placeholder='Max Beds'
                     onChange={handleChange}
                 />
-                <Form.Button>Advanced</Form.Button>
-                <Form.Button>Submit</Form.Button>
+                <Button basic color="blue">Advanced</Button>
+                <Button type="submit" primary>Submit</Button>
             </Form.Group>
+
 
         </Form>
     )
 }
-
-
-
-// class FormExampleSubcomponentControl extends Component {
-//     state = {}
-
-//     handleChange = (e, { value }) => this.setState({ value })
-
-//     render() {
-//         const { value } = this.state //??
-//         return (
-//             <Form>
-//                 <Form.Group widths='equal'>
-//                     <Form.Input fluid label='First name' placeholder='First name' />
-//                     <Form.Input fluid label='Last name' placeholder='Last name' />
-//                     <Form.Select
-//                         fluid
-//                         label='Gender'
-//                         options={options}
-//                         placeholder='Gender'
-//                     />
-//                 </Form.Group>
-//                 <Form.Group inline>
-//                     <label>Size</label>
-//                     <Form.Radio
-//                         label='Small'
-//                         value='sm'
-//                         checked={value === 'sm'}
-//                         onChange={this.handleChange}
-//                     />
-//                     <Form.Radio
-//                         label='Medium'
-//                         value='md'
-//                         checked={value === 'md'}
-//                         onChange={this.handleChange}
-//                     />
-//                     <Form.Radio
-//                         label='Large'
-//                         value='lg'
-//                         checked={value === 'lg'}
-//                         onChange={this.handleChange}
-//                     />
-//                 </Form.Group>
-//                 <Form.TextArea label='About' placeholder='Tell us more about you...' />
-//                 <Form.Checkbox label='I agree to the Terms and Conditions' />
-//                 <Form.Button>Submit</Form.Button>
-//             </Form>
-//         )
-//     }
-// }

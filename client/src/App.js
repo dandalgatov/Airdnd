@@ -4,60 +4,93 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
+import { Container, Divider } from 'semantic-ui-react'
 
-import { loginUser, verifyUser, registerUser } from './services/auth'
+import { verifyUser } from './services/auth'
+import { getUserListings } from './services/api'
 
 import Home from './screens/Home'
-import SignIn from './screens/SignIn'
-import EditListing from './screens/SignIn'
+import AddListing from './screens/AddListing'
+import SearchResults from './screens/SearchResults'
+import ListingDetails from './screens/ListingDetails'
+import UserProfile from './screens/UserProfile'
+import { getNeighborhoods } from './services/api'
 
 import Header from './components/Header'
 
 export default function App() {
 
-  const [currentUser, setCurrentUser] = useState(null)
-  const [userData, setUserData] = useState(
-    {
-      username: '',
-      password: ''
-    }
-  )
+  const [basicSearchResults, setBasicSearchResults] = useState({})
+  const [neighborhoods, setNeighborhoods] = useState([])
 
-  // useEffect(() => {
-  //   (async () => setCurrentUser(await verifyUser()))()
-  // })
+  const [currentUser, setCurrentUser] = useState()
+  const [userListings, setUserListings] = useState()
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
-    setUserData({ ...userData, [name]: value })
-  }
 
-  const loginSubmit = async (event) => {
-    event.preventDefault()
-    setCurrentUser(await loginUser(userData))
-  }
 
-  const handleRegister = async (event) => {
-    event.preventDefault()
-    setCurrentUser(await registerUser(userData))
-    // useHistory().push('/')
-  }
+  useEffect(() => {
+    (async () => {
+      setCurrentUser(await verifyUser())
+      currentUser && setUserListings(await getUserListings(currentUser && currentUser.id))
+      const neighborhoodsData = await getNeighborhoods()
+      const allNeighborhoods = []
+      neighborhoodsData && neighborhoodsData.map(neighborhood =>
+        allNeighborhoods.push({
+          text: neighborhood.name,
+          value: neighborhood.id
+        })
+      )
+      setNeighborhoods(allNeighborhoods)
+    })()
+  }, [])
+
+console.log(currentUser && currentUser.id)
 
   return (
-    <div>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/signin" render={() =>
-          <SignIn
-            handleChange={handleChange}
-            userData={userData}
-            handleLogin={loginSubmit}
-            currentUser={currentUser}
-            handleRegister={handleRegister}
-          />} />
-        <Route exact path="/listing/new" component={EditListing} />
-      </Switch>
-    </div>
+    <>
+      {/* <Container> */}
+      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      <Divider hidden />
+
+
+      <Container>
+        <Switch>
+
+          <Route exact path="/" render={() =>
+            <Home
+              setBasicSearchResults={setBasicSearchResults}
+              neighborhoods={neighborhoods}
+            />} />
+
+
+          <Route exact path="/search_results" render={() =>
+            <SearchResults
+              setBasicSearchResults={setBasicSearchResults}
+              basicSearchResults={basicSearchResults}
+            />} />
+
+          <Route exact path="/listings/:id" render={() =>
+            <ListingDetails
+              setBasicSearchResults={setBasicSearchResults}
+              basicSearchResults={basicSearchResults}
+            />} />
+
+          <Route exact path="/listing/add" render={() =>
+            <AddListing
+            neighborhoodOptions={neighborhoods}
+            />} />
+
+          <Route exact path="/profile" render={() =>
+            <UserProfile
+              currentUser={currentUser && currentUser} 
+              setCurrentUser={setCurrentUser}
+              userListings={userListings}
+              setUserListings={setUserListings}
+            />} />
+        </Switch>
+      </Container>
+      {/* </Container> */}
+    </>
+
   )
 }
