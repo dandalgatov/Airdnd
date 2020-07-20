@@ -4,7 +4,7 @@ import { Input, Menu, Dropdown, Segment, Icon, Image, Button, Modal, Form, Divid
 import 'semantic-ui-css/semantic.min.css'
 import { LogoIcon } from '../../assets/logo_icon.svg'
 import SignIn from '../../components/SignIn'
-import { removeToken } from  '../../services/auth'
+import { removeToken } from '../../services/auth'
 
 export default function Header(props) {
 
@@ -50,12 +50,9 @@ export default function Header(props) {
         <div>
             <Menu secondary attached='top' color='purple' inverted >
 
-                <Button image>
+                <Menu.Item onClick={() => history.push('/')}>
                     <Image src={process.env.PUBLIC_URL + '/airdnd_logo.png'} size='mini' />
-                </Button>
-
-
-
+                </Menu.Item>
 
                 <Menu.Menu position='right'>
                     <Menu.Item>
@@ -68,11 +65,11 @@ export default function Header(props) {
                         />
                     </Menu.Item>
                     {currentUser ?
-                        <Dropdown item size='big' 
+                        <Dropdown item size='big'
                             trigger={
                                 currentUser.profile_picture ?
-                                <Image avatar src={currentUser.profile_picture} /> :
-                                <Icon name='user circle' size='large'/>
+                                    <Image avatar src={currentUser.profile_picture} /> :
+                                    <Icon name='user circle' size='large' />
                             }
                         >
                             <Dropdown.Menu >
@@ -86,7 +83,7 @@ export default function Header(props) {
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown> :
-                        <SignIn currentUser={currentUser} setCurrentUser={setCurrentUser}/> 
+                        <SignIn currentUser={currentUser} setCurrentUser={setCurrentUser} />
                     }
                     {/* <Dropdown
                         trigger={trigger}

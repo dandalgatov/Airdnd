@@ -77,7 +77,8 @@ console.log(currentUser && currentUser.id)
 
           <Route exact path="/listing/add" render={() =>
             <AddListing
-            neighborhoodOptions={neighborhoods}
+              neighborhoodOptions={neighborhoods}
+              currentUser={currentUser}
             />} />
 
           <Route exact path="/profile" render={() =>

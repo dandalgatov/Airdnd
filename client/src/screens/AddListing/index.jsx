@@ -2,30 +2,56 @@ import React, { useState, useEffect } from 'react'
 import { getAmenities } from '../../services/api'
 import { Form, TextArea, Checkbox, Grid, Segment, Card, Icon, Button } from 'semantic-ui-react'
 import AddImage from '../../components/AddImage'
-import {createListing} from '../../services/api'
+import { createListing } from '../../services/api'
 
 
 export default function AddListing(props) {
-    const { neighborhoodOptions } = props
-    const [listingData, setListingData] = useState([])
+    const { neighborhoodOptions, currentUser } = props
     const [activeImages, setActiveImages] = useState([])
     const [amenities, setAmenities] = useState([])
+    const [listingData, setListingData] = useState({
+        user_id: '',
+        neighborhood_id: '',
+        listing: {
+            address: '',
+            apt_num: '',
+            zip: '',
+            beds: 0,
+            baths: 0,
+            sqft: 0,
+            rent: 0,
+            description: '',
+            published: false
+        }
+    })
 
     useEffect(() => {
         (async () => setAmenities([...await getAmenities()]))()
-
     }, [])
 
     const handleChange = (e, data) => {
-        setListingData({
-            ...listingData,
-            [data.name]: data.value
-        })
+        if (data.name === 'neighborhood_id') {
+            setListingData({
+                ...listingData,
+                [data.name]: data.value
+            })
+        } else {
+            setListingData({
+                ...listingData, listing: {
+                    ...listingData.listing,
+                    [data.name]: data.value
+                }
+            })
+        }
     }
 
-    const handleSubmit = async () => {
-        await createListing(listingData)
+    console.log(currentUser && currentUser.id)
 
+    const handlePost = async () => {
+        // const user_id = currentUser.id && currentUser.id
+        setListingData({ ...listingData.listing, published: true })
+        setListingData({ ...listingData, user_id: currentUser.id && currentUser.id})
+        await createListing(listingData)
     }
 
     const bedOptions = [
@@ -51,7 +77,7 @@ export default function AddListing(props) {
             <Segment>
                 <Button negative>Delete</Button>
                 <Button color='yellow' >Save Draft</Button>
-                <Button primary floated='right'>Post</Button>
+                <Button primary onClick={handlePost} floated='right'>Post</Button>
             </Segment>
             <Grid stackable >
                 <Grid.Row stretched>

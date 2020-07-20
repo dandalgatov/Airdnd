@@ -29,7 +29,8 @@ export const getUserListings = async (id) => {
 }
 
 export const createListing = async (listingData) => {
-    const response = await api.get('/listings', {listing: listingData})
+    const response = await api.get('/listings', listingData)
+    console.log(listingData)
     return response.data
 }
 
@@ -39,8 +40,8 @@ export const getImages = async (listing_id) => {
     return response.data
 }
 
-export const createImages = async (listing_id) => {
-    const response = await api.post(`/listings/${listing_id}/images`, {images: imageData})
+export const createImage = async (listing_id, url) => {
+    const response = await api.post(`/listings/${listing_id}/images`, {images: url})
     return response.data
 }
 
