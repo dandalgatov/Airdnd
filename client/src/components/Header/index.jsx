@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Input, Menu, Dropdown, Segment, Icon, Image, Button, Modal, Form, Divider } from 'semantic-ui-react'
+import { Input, Menu, Dropdown, Icon, Image } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
-import { LogoIcon } from '../../assets/logo_icon.svg'
 import SignIn from '../../components/SignIn'
 import { removeToken } from '../../services/auth'
 
@@ -30,20 +29,7 @@ export default function Header(props) {
         history.push('/')
     }
 
-    // const trigger = (
-    //     <span>
-    //         {currentUser.profile_picture ?
-    //             <Image avatar src={currentUser.profile_picture} /> :
-    //             <Icon name='user circle' />
-    //         }
-    //     </span>
-    // )
 
-    const options = [
-        { key: 'user', text: 'Account', icon: 'user' },
-        { key: 'settings', text: 'Settings', icon: 'settings' },
-        { key: 'sign-out', text: 'Sign Out', icon: 'sign out' },
-    ]
 
     return (
 
@@ -85,12 +71,6 @@ export default function Header(props) {
                         </Dropdown> :
                         <SignIn currentUser={currentUser} setCurrentUser={setCurrentUser} />
                     }
-                    {/* <Dropdown
-                        trigger={trigger}
-                        options={options}
-                        pointing='middle'
-                        icon={null}
-                    /> */}
                 </Menu.Menu>
 
             </Menu>

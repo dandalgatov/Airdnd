@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getListing } from '../../services/api'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Grid, Image, Message, Card, Button, Icon, Responsive, Header, Rail, Segment, Label, Item, Rating } from 'semantic-ui-react'
+import { Grid, Card, Button, Icon, Segment, Item, Rating } from 'semantic-ui-react'
 
 export default function ListingDetails(props) {
 
@@ -16,7 +16,7 @@ export default function ListingDetails(props) {
 
     useEffect(() => {
         (async () => setListingDetails(await getListing(id)))()
-    }, [])
+    }, [id])
 
     console.log(listingDetails)
 

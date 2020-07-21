@@ -1,5 +1,5 @@
 import React, { useState,  useEffect, } from 'react'
-import { Form, Grid, Segment, Card, Icon, Button, Item, Image, Divider } from 'semantic-ui-react'
+import { Form, Grid, Segment, Card, Button, Image, Divider } from 'semantic-ui-react'
 import ListingCard from '../../components/ListingCard/'
 import { updateUser } from '../../services/api'
 import { useHistory } from 'react-router-dom'
@@ -19,7 +19,6 @@ export default function UserProfile(props) {
     const email = currentUser && currentUser.email
     const phone = currentUser && currentUser.phone
     const profile_picture = currentUser && currentUser.profile_picture
-    const rating = currentUser && currentUser.rating
     
 
 
@@ -39,10 +38,7 @@ export default function UserProfile(props) {
         console.log(id, currentUser)
     }
 
-    const handleEditClick = (e, id) => {
-        e.preventDefault()
-        history.push(`/listings/edit/${id}`)
-    }
+
 
 
 

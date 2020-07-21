@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import { Container, Divider } from 'semantic-ui-react'
 
 import { verifyUser } from './services/auth'
@@ -24,14 +20,14 @@ export default function App() {
   const [neighborhoods, setNeighborhoods] = useState([])
 
   const [currentUser, setCurrentUser] = useState()
-  const [editListingData, setEditListingData] = useState()
+
 
 
 
   useEffect(() => {
     (async () => {
       // setCurrentUser(await verifyUser())
-      const user = (await verifyUser())
+      await verifyUser()
       const neighborhoodsData = await getNeighborhoods()
       const allNeighborhoods = []
       neighborhoodsData && neighborhoodsData.map(neighborhood =>

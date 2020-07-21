@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link , useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Form, Button } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import { getSearchResults } from '../../services/api'
