@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
 import { Card } from 'semantic-ui-react'
 import ListingCard from '../../components/ListingCard'
+import BasicSearch from '../../components/BasicSearch'
 
 export default function SearchResults(props) {
-    const { basicSearchResults } = props
+    const { setBasicSearchResults, basicSearchResults, neighborhoods } = props
     const [searchResultsLength, setSearchResultsLength] = useState(50)
+
     
+                
+
 
     return (
-        <Card.Group itemsPerRow={4} stackable doubling centered>
+        <>
+            <BasicSearch neighborhoodOptions={neighborhoods} setBasicSearchResults={setBasicSearchResults}/>
+            {basicSearchResults ?
+            <Card.Group itemsPerRow={4} stackable doubling centered>
             {basicSearchResults && basicSearchResults.slice(0, searchResultsLength).map((r, index) => {
                 return <ListingCard
                     id={r.id}
@@ -24,9 +31,14 @@ export default function SearchResults(props) {
                     created_at={new Date(r.created_at).toLocaleDateString()}
                     ownerName={[r.user.first_name, r.user.last_name].join(' ')}
                 />
-            }
-            )}
-        </Card.Group>
+            })}
+                </Card.Group> :
+                <div></div>
+        
+        
+        }
+            
+        </>
     )
 }
 

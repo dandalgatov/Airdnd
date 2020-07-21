@@ -16,7 +16,7 @@ import Header from './components/Header'
 
 export default function App() {
 
-  const [basicSearchResults, setBasicSearchResults] = useState({})
+  const [basicSearchResults, setBasicSearchResults] = useState()
   const [neighborhoods, setNeighborhoods] = useState([])
   const [currentUser, setCurrentUser] = useState()
 
@@ -60,6 +60,7 @@ export default function App() {
             <SearchResults
               setBasicSearchResults={setBasicSearchResults}
               basicSearchResults={basicSearchResults}
+              neighborhoods={neighborhoods}
             />} />
 
           <Route exact path="/listings/add" render={() =>
