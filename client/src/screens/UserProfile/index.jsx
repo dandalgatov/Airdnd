@@ -33,7 +33,8 @@ export default function UserProfile(props) {
 
     const handleUserUpdate = async (e) => {
         e.preventDefault()
-        setCurrentUser(await updateUser(id, currentUser))
+        await updateUser(id, currentUser)
+        // setCurrentUser(await updateUser(id, currentUser))
 
         console.log(id, currentUser)
     }

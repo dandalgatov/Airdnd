@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom"
 
 
 import { getAmenities, getListing } from '../../services/api'
-import { Form, TextArea, Checkbox, Grid, Segment, Card, Icon, Button } from 'semantic-ui-react'
+import { Form, TextArea, Grid, Segment, Button } from 'semantic-ui-react'
 import AddImage from '../../components/AddImage'
 import { createListing, editListing, deleteListing } from '../../services/api'
 
@@ -13,7 +13,7 @@ export default function AddListing(props) {
     const { id } = useParams()
     const { neighborhoodOptions, currentUser } = props
     const [activeImages, setActiveImages] = useState([])
-    const [amenities, setAmenities] = useState([])
+    // const [amenities, setAmenities] = useState([])
     const [listingData, setListingData] = useState({
         user_id: '',
         neighborhood_id: '',
@@ -21,22 +21,20 @@ export default function AddListing(props) {
             address: '',
             apt_num: '',
             zip: '',
-            beds: 0,
-            baths: 0,
-            sqft: 0,
-            rent: 0,
-            security_deposit: 0,
-            fee: 0,
+            beds: '',
+            baths: '',
+            sqft: '',
+            rent: '',
+            security_deposit: '',
+            fee: '',
             description: '',
             published: false
         }
     })
 
-    const userId = currentUser && currentUser.id
-
     useEffect(() => {
         (async () => {
-            setAmenities([await getAmenities()])
+            // setAmenities([await getAmenities()])
             const data = (await getListing(id))
             console.log(data)
             setListingData({
@@ -59,9 +57,9 @@ export default function AddListing(props) {
         })()
     }, [])
 
-
     const handlePost = async () => {
-        const newListing = { ...listingData, user_id: userId, listing: { ...listingData.listing, published: true } }
+        const user_id = currentUser && currentUser.id
+        const newListing = { ...listingData, user_id: user_id, listing: { ...listingData.listing, published: true } }
         createListing(newListing)
         history.push('/profile')
     }
@@ -113,8 +111,6 @@ export default function AddListing(props) {
         { text: '4 Bath', value: 4 },
         { text: '5 Bath', value: 5 },
     ]
-
-    console.log(listingData.listing.beds)
 
     return (
         <>
@@ -183,6 +179,7 @@ export default function AddListing(props) {
                                 <Form.Input
                                     placeholder='SQFT'
                                     name='sqft'
+                                    label='SQFT'
                                     value={listingData.listing.sqft}
                                     onChange={handleChange} width={6}
                                 />
@@ -191,28 +188,34 @@ export default function AddListing(props) {
                                 <Form.Input
                                     placeholder='Rent'
                                     name='rent'
+                                    label='Rent'
                                     value={listingData.listing.rent}
                                     onChange={handleChange} width={6}
                                 />
                                 <Form.Input
                                     placeholder='Security Deposit'
-                                    name='security_deposit' 
+                                    name='security_deposit'
+                                    label='Security Deposit'
                                     value={listingData.listing.security_deposit}
                                     onChange={handleChange} width={6}
                                 />
                                 <Form.Input
                                     placeholder='Fee'
                                     name='fee'
+                                    label='Fee'
                                     value={listingData.listing.fee}
                                     onChange={handleChange} width={6}
                                 />
                             </Form.Group>
-                            <TextArea
+                            <Form.Field
+                                control={TextArea}
                                 placeholder='Description'
                                 name='description'
+                                label='Decription'
                                 value={listingData.listing.description}
                                 onChange={handleChange} width={16}
                             />
+                           
                             {/* {amenities && amenities.map((amenity) => {
                                 return <Checkbox label={amenity.name} />
                             })} */}

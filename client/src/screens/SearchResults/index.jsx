@@ -3,9 +3,9 @@ import { Card } from 'semantic-ui-react'
 import ListingCard from '../../components/ListingCard'
 
 export default function SearchResults(props) {
-    const { basicSearchResults, setBasicSearchResults } = props
-    
+    const { basicSearchResults } = props
     const [searchResultsLength, setSearchResultsLength] = useState(50)
+    
 
     return (
         <Card.Group itemsPerRow={4} stackable doubling centered>

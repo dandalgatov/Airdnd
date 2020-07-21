@@ -18,7 +18,7 @@ export default function ListingDetails(props) {
         (async () => setListingDetails(await getListing(id)))()
     }, [id])
 
-    console.log(listingDetails)
+    console.log(images)
 
 
 
@@ -29,7 +29,7 @@ export default function ListingDetails(props) {
                 <Grid.Column width={12}>
                     <Segment>
                         <Carousel showArrows={true} showIndicators={false}>
-                            {images ? images.map((img, idx) => <div><img alt={`image ${idx + 1}`} src={img.url} /></div>) : <div><img alt="No Image" src={process.env.PUBLIC_URL + '/no-image-found.png'} /></div>}
+                            {images && images.length > 0 ? images.map((img, idx) => <div><img alt={`image ${idx + 1}`} src={img.url} /></div>) : <div><img alt="No Image" src={process.env.PUBLIC_URL + '/no-image-found.png'} /></div>}
                         </Carousel>
                     </Segment>
                 </Grid.Column>

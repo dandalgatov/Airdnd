@@ -18,16 +18,14 @@ export default function App() {
 
   const [basicSearchResults, setBasicSearchResults] = useState({})
   const [neighborhoods, setNeighborhoods] = useState([])
-
   const [currentUser, setCurrentUser] = useState()
 
-
+  console.log(basicSearchResults)
 
 
   useEffect(() => {
     (async () => {
-      // setCurrentUser(await verifyUser())
-      await verifyUser()
+      setCurrentUser(await verifyUser())
       const neighborhoodsData = await getNeighborhoods()
       const allNeighborhoods = []
       neighborhoodsData && neighborhoodsData.map(neighborhood =>
