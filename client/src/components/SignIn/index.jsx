@@ -25,7 +25,11 @@ export default function SignIn(props) {
     const handleSignIn = async (e, data) => {
         e.preventDefault()
         if (regExp.test(userData.email) && userData.password.length >= 6) {
-            setCurrentUser(await signInUser(userData))
+            try {
+                setCurrentUser(await signInUser(userData))
+            } catch (error) {
+                alert('Unable to authorize. Please check credentials.')
+            }
         } else {
             alert('You must enter a valid email, and your password must be atleast 6 characters long')
         }
@@ -33,7 +37,7 @@ export default function SignIn(props) {
 
     const handleRegister = async (e) => {
         e.preventDefault()
-        const {first_name, email, password, confirm_password} = userData
+        const { first_name, email, password, confirm_password } = userData
         if (regExp.test(email) == false) {
             alert('You must enter a valid email!')
         } else if (password !== confirm_password) {
@@ -42,14 +46,25 @@ export default function SignIn(props) {
             alert('Please fill out all required fields')
         } else {
             delete userData.confirm_password
-            setCurrentUser(await registerUser(userData))
-            setModalOpen(false)
-            history.push('/profile')
+            try {
+                setCurrentUser(await registerUser(userData))
+                setModalOpen(false)
+                history.push('/profile')
+            } catch (error) {
+                alert(error)
+            }
         }
     }
 
     return (
-        <Modal size='tiny' open={modalOpen} onOpen={() => setModalOpen(true)} trigger={<Button color='purple'>Sign In</Button>}>
+        <Modal
+            size='tiny'
+            open={modalOpen}
+            onOpen={() => setModalOpen(true)}
+            onClose={() => setModalOpen(false)}
+            trigger={<Button style={{ backgroundColor: "white" }}>Sign In</Button>}
+        >
+
             <Modal.Header>
                 Sign in
             </Modal.Header>
