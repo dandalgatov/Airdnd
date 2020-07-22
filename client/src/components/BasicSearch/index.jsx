@@ -7,10 +7,8 @@ import { getSearchResults } from '../../services/api'
 
 
 export default function BasicSearch(props) {
-
     const { neighborhoodOptions, setBasicSearchResults } = props
     const [basicSearch, setBasicSearch] = useState({})
-
     const history = useHistory()
 
     const rentOptions = [
@@ -57,7 +55,6 @@ export default function BasicSearch(props) {
         setBasicSearchResults(await getSearchResults(basicSearch))
         history.push("/search_results")
     }
-
 
     return (
             <Segment >

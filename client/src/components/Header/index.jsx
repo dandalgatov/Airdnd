@@ -29,55 +29,43 @@ export default function Header(props) {
         history.push('/')
     }
 
-
-
     return (
-
-
-            <Menu secondary stackable attached='bottom' style={{backgroundColor: 'white'}} >
-
-                <Menu.Item onClick={() => history.push('/')}>
-                    <Image src={process.env.PUBLIC_URL + '/airdnd_logo.png'} size='small' />
+        <Menu secondary stackable attached='bottom' style={{ backgroundColor: 'white' }} >
+            <Menu.Item onClick={() => history.push('/')}>
+                <Image src={process.env.PUBLIC_URL + '/airdnd_logo.png'} size='small' />
+            </Menu.Item>
+            <Menu.Menu position='right'>
+                <Menu.Item>
+                    <Input
+                        icon='search'
+                        name='address_search'
+                        onChange={handleChange}
+                        placeholder='address'
+                        size='small'
+                    />
                 </Menu.Item>
-
-                
-
-
-                <Menu.Menu position='right'>
-                    <Menu.Item>
-                        <Input
-                            icon='search'
-                            name='address_search'
-                            onChange={handleChange}
-                            placeholder='address'
-                            size='small'
-                        />
-                    </Menu.Item>
-                    {currentUser ?
-                        <Dropdown item size='big'
-                            trigger={
-                                currentUser.profile_picture ?
-                                    <Image avatar src={currentUser.profile_picture} /> :
-                                    <Icon name='user circle' size='large' />
-                            }
-                        >
-                            <Dropdown.Menu >
-                                <Dropdown.Item onClick={viewProfile}>
-                                    <Icon name='user circle' />
-                                    <span className='text'>Profile</span>
-                                </Dropdown.Item>
-                                <Dropdown.Item onClick={handleSignOut}>
-                                    <Icon name='sign-out' />
-                                    <span className='text'>Sign Out</span>
-                                </Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown> :
-                        <SignIn currentUser={currentUser} setCurrentUser={setCurrentUser} />
-                    }
-                </Menu.Menu>
-
-            </Menu>
-
-
+                {currentUser ?
+                    <Dropdown item size='big'
+                        trigger={
+                            currentUser.profile_picture ?
+                                <Image avatar src={currentUser.profile_picture} /> :
+                                <Icon name='user circle' size='large' />
+                        }
+                    >
+                        <Dropdown.Menu >
+                            <Dropdown.Item onClick={viewProfile}>
+                                <Icon name='user circle' />
+                                <span className='text'>Profile</span>
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={handleSignOut}>
+                                <Icon name='sign-out' />
+                                <span className='text'>Sign Out</span>
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown> :
+                    <SignIn currentUser={currentUser} setCurrentUser={setCurrentUser} />
+                }
+            </Menu.Menu>
+        </Menu>
     )
 }

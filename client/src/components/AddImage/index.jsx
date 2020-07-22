@@ -3,10 +3,8 @@ import { Segment, Form, Card, Icon, Button, Divider } from 'semantic-ui-react'
 import { deleteImage, createImage } from '../../services/api'
 
 export default function AddImage(props) {
-
     const { activeImages, setActiveImages, listing_id} = props
     const [newImage, setNewImage] = useState({})
-
 
     const handleNewImageChange = (e, data) => {
         setNewImage({
@@ -35,10 +33,8 @@ export default function AddImage(props) {
         setActiveImages([...activeImages])
     }
     
-    
     return (
         <Segment compact padded clear>
-        
             <Form onSubmit={handleNewImageSubmit}>
                 <Form.Group>
                     <Form.Input action={{
@@ -57,7 +53,6 @@ export default function AddImage(props) {
                 </Form.Group>
             </Form>
             <Divider/>
-            
             <Card.Group itemsPerRow={2} doubling>
                 {activeImages && activeImages.map((image, index) => {
                     return <Card
@@ -71,7 +66,6 @@ export default function AddImage(props) {
                     />
                 })}
             </Card.Group>
-
         </Segment>
     )
 }

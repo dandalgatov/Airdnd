@@ -64,7 +64,6 @@ export default function SignIn(props) {
             onClose={() => setModalOpen(false)}
             trigger={<Button style={{ backgroundColor: "white" }}>Sign In</Button>}
         >
-
             <Modal.Header>
                 Sign in
             </Modal.Header>
