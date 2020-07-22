@@ -75,9 +75,10 @@ export const getImages = async (listing_id) => {
     }
 }
 
+
 export const createImage = async (listing_id, url) => {
     try {
-        const response = await api.post(`/listings/${listing_id}/images`, { images: url })
+        const response = await api.post(`/listings/${listing_id}/images`, url)
         return response.data
     } catch (error) {
         throw error
