@@ -44,7 +44,7 @@
   },
   "git": {
     "scripts": {
-      "pre-push": "npm run build && cd build/ && mv index.html 200.html && surge --project /Users/dandalgatov/personal_projects/Airdnd/client/build/ --domain airdnd.surge.sh"
+      "pre-push": "npm run build && cd build/ && mv index.html 200.html && surge --project /Users/dandalgatov/personal_projects/Airdnd/client/build/ --domain airdnd.surge.sh && cd .."
     }
   }
 }
