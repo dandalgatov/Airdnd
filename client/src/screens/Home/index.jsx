@@ -36,6 +36,7 @@ export default function Home(props) {
                     neighborhoodOptions={neighborhoods}
                     setBasicSearchResults={setBasicSearchResults}
                 /> */}
+                {/* gf */}
                 <Segment >
                     < Carousel
                         autoPlay
