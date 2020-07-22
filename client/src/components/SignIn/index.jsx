@@ -51,7 +51,7 @@ export default function SignIn(props) {
                 setModalOpen(false)
                 history.push('/profile')
             } catch (error) {
-                alert(error)
+                alert('Unable to register')
             }
         }
     }
