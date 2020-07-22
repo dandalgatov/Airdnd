@@ -12,7 +12,7 @@ export default function AddListing(props) {
     const history = useHistory()
     const { id } = useParams()
     const { neighborhoodOptions, currentUser } = props
-    const [activeImages, setActiveImages] = useState()
+    const [activeImages, setActiveImages] = useState([])
     // const [amenities, setAmenities] = useState([])
     const [listingData, setListingData] = useState({
         user_id: '',
@@ -32,11 +32,11 @@ export default function AddListing(props) {
         }
     })
 
+
     useEffect(() => {
         (async () => {
             // setAmenities([await getAmenities()])
             const data = (await getListing(id))
-            console.log(data)
             setListingData({
                 user_id: data.user.id,
                 neighborhood_id: data.neighborhood.id,
@@ -54,6 +54,7 @@ export default function AddListing(props) {
                     published: data.published
                 }
             })
+            data.images && setActiveImages(data.images)
         })()
     }, [])
 
@@ -61,10 +62,9 @@ export default function AddListing(props) {
         const user_id = currentUser && currentUser.id
         const newListing = { ...listingData, user_id: user_id, listing: { ...listingData.listing, published: true } }
         const savedListing = await createListing(newListing)
-        activeImages && activeImages.forEach(image => createImage(savedListing.id, image.url))
 
+        activeImages.forEach(image => createImage(savedListing.id, image))
 
-        console.log(savedListing)
         history.push('/profile')
     }
 
@@ -219,14 +219,13 @@ export default function AddListing(props) {
                                 value={listingData.listing.description}
                                 onChange={handleChange} width={16}
                             />
-                           
                             {/* {amenities && amenities.map((amenity) => {
                                 return <Checkbox label={amenity.name} />
                             })} */}
                         </Form>
                     </Grid.Column>
                     <Grid.Column width={8}>
-                        <AddImage activeImages={activeImages} setActiveImages={setActiveImages} />
+                        <AddImage activeImages={activeImages} setActiveImages={setActiveImages} listing_id={id} />
                     </Grid.Column>
                 </Grid.Row>
             </Grid >
