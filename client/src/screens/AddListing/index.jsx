@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useHistory } from "react-router-dom"
-
-
-import { getAmenities, getListing } from '../../services/api'
 import { Form, TextArea, Grid, Segment, Button } from 'semantic-ui-react'
 import AddImage from '../../components/AddImage'
-import { createListing, editListing, deleteListing, createImage } from '../../services/api'
-
+import {
+    getListing,
+    createListing,
+    editListing,
+    deleteListing,
+    createImage,
+    getAmenities
+} from '../../services/api'
 
 export default function AddListing(props) {
+    const { neighborhoodOptions, currentUser } = props
     const history = useHistory()
     const { id } = useParams()
-    const { neighborhoodOptions, currentUser } = props
-    const [activeImages, setActiveImages] = useState([])
     // const [amenities, setAmenities] = useState([])
+    const [activeImages, setActiveImages] = useState([])
     const [listingData, setListingData] = useState({
         user_id: '',
         neighborhood_id: '',
@@ -31,7 +34,6 @@ export default function AddListing(props) {
             published: false
         }
     })
-
 
     useEffect(() => {
         (async () => {
@@ -56,21 +58,24 @@ export default function AddListing(props) {
             })
             data.images && setActiveImages(data.images)
         })()
-    }, [])
+    }, [id])
 
     const handlePost = async () => {
         const { address, apt_num, beds, baths, rent } = listingData.listing
         const { neighborhood_id } = listingData
         if (address && apt_num && neighborhood_id && beds && baths && rent) {
             const user_id = currentUser && currentUser.id
-            const newListing = { ...listingData, user_id: user_id, listing: { ...listingData.listing, published: true } }
+            const newListing = {
+                ...listingData,
+                user_id: user_id,
+                listing: { ...listingData.listing, published: true }
+            }
             const savedListing = await createListing(newListing)
             activeImages.forEach(image => createImage(savedListing.id, image))
             history.push('/profile')
-        }else {
+        } else {
             alert('Please fill out all the required fields.')
         }
-
     }
 
     const handleEdit = async () => {
@@ -110,8 +115,8 @@ export default function AddListing(props) {
         { text: '7 Bed', value: 7 },
         { text: '8 Bed', value: 8 },
         { text: '9 Bed', value: 9 }
-
     ]
+
     const bathOptions = [
         { text: '1 Bath', value: 1 },
         { text: '2 Bath', value: 2 },
@@ -125,7 +130,9 @@ export default function AddListing(props) {
             <Segment>
                 <Button negative onClick={handleDelete}>Delete</Button>
                 <Button color='yellow' disabled >Save Draft</Button>
-                <Button primary onClick={id ? handleEdit : handlePost} floated='right'>Submit</Button>
+                <Button primary floated='right'
+                    onClick={id ? handleEdit : handlePost}
+                >Submit</Button>
             </Segment>
             <Grid stackable >
                 <Grid.Row stretched>
