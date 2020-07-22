@@ -55,9 +55,7 @@ export default function BasicSearch(props) {
     const handleSubmit = async (event) => {
         event.preventDefault()
         setBasicSearchResults(await getSearchResults(basicSearch))
-        console.log(await getSearchResults(basicSearch))
         history.push("/search_results")
-
     }
 
 
