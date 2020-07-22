@@ -70,9 +70,9 @@ export default function ListingDetails(props) {
                         </Card.Content>
                         <Card.Content extra>
                             <div className='ui three buttons'>
-                                <Button basic content='Save' icon='save' color='green' />
-                                <Button basic content='Share' icon='share alternate' color='yellow' />
-                                <Button basic content='Hide' icon='hide' color='blue' />
+                                <Button disabled basic content='Save' icon='save' color='green' />
+                                <Button disabled basic content='Share' icon='share alternate' color='yellow' />
+                                <Button disabled basic content='Hide' icon='hide' color='blue' />
                             </div>
                         </Card.Content>
                     </Card>
@@ -91,8 +91,7 @@ export default function ListingDetails(props) {
                 <Grid.Column width={4}>
                     <Item.Group>
                         <Item>
-                            <Item.Image avatar size="tiny" src='https://picsum.photos/200/200' />
-
+                            <Item.Image avatar size="tiny" src={user && user.profile_picture ? user.profile_picture : process.env.PUBLIC_URL + '/no_profile_picture.jpg'} />
                             <Item.Content verticalAlign='middle'>
                                 <Item.Header>Listed By:</Item.Header>
                                 <Item.Meta >
