@@ -1,5 +1,7 @@
 # Airdnd README <!-- omit in toc -->
 
+Live site: http://airdnd.surge.sh/
+
 
 - [Overview](#overview)
 - [MVP](#mvp)
@@ -56,10 +58,9 @@ The **Airdnd** MVP is to be able to:
 |  React Router  | _Collection of navigational components._ |
 |    Cors    | _Connect Express middleware._ |
 |    Body Parser    | _Formats data for JSON_ |
-|    Material UI   | _CSS library._ |
+|    Semantic UI   | _CSS library._ |
 |    Axios    | _Sends API calls._ |
-|    Fontawesome    | _Imports svg icons._ |
-|    Underscore  | _A suite of 100+ specialized functions/_ |
+|    React Responsive Carousel | _Allows you to embed an image carousel on your website_ |
 
 <br>
 
@@ -227,6 +228,25 @@ Authentication Cofirmation (send confirmation email to user's email and text to 
 
 ## Code Showcase
 
+This is a minituarized version of the solution. Consistently throughout the build, I ran into an issue of prop deconstruction throwing an error. You can't deconstruct id from currentUser, if the currentUser is undefined. Below I give the deconstructor a choice of deconstructing id from currentUser or an empty object. Since empty object is NOT undefined, I avoid an error, and give currentUser enough time to set so we can get the id out of it. It's a simple trick and a good adition to the guard operator (&&) 
+```
+const { id } = currentUser.props || {}
+```
+
 
 
 ## Code Issues & Resolutions
+
+I was struggling to update a user and could not understand why. All the data I was sending seemed correct. Finally I tracked the issue down to the type. When you send id through body, it comes through the params as a string, and does not allow you to match the id stored in the database since that one is a bigInt. Below is one of the solutions for this problem. In other cases I ended up sending the ID via the route link and it worked without issues. 
+
+```
+def update
+    if @current_user.id.to_s == params[:id].to_s
+      if @user.update(user_params)
+      render json: @user
+      else
+      render json: @user.errors, status: :unprocessable_entity
+      end
+    end
+  end
+```
