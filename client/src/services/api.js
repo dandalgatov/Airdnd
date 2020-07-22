@@ -76,9 +76,20 @@ export const getImages = async (listing_id) => {
 }
 
 
-export const createImage = async (listing_id, url) => {
+export const createImage = async (listing_id, imageData) => {
     try {
-        const response = await api.post(`/listings/${listing_id}/images`, url)
+        console.log(listing_id)
+        console.log(imageData)
+        const response = await api.post(`/listings/${listing_id}/images`, { image: imageData })
+        return response.data
+    } catch (error) {
+        throw error
+    }
+}
+
+export const deleteImage = async (image_id) => {
+    try {
+        const response = await api.delete(`/images/${image_id}`)
         return response.data
     } catch (error) {
         throw error
