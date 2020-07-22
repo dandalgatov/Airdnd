@@ -33,7 +33,6 @@ export default function AddImage(props) {
         const imageToDelete = activeImages.splice(index, 1)
         deleteImage(imageToDelete[0].id)
         setActiveImages([...activeImages])
-        console.log(activeImages)
     }
     
     
