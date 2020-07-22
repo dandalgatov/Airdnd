@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { Container, Divider } from 'semantic-ui-react'
+import './App.css'
 
 import { verifyUser } from './services/auth'
 
@@ -40,13 +41,14 @@ export default function App() {
 
 
   return (
-    <>
-      {/* <Container> */}
-      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      <Divider hidden />
-
-
+    <div className='App'>
+      
       <Container>
+      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
+
+
+
+      {/* <Container> */}
         <Switch>
 
           <Route exact path="/" render={() =>
@@ -94,7 +96,7 @@ export default function App() {
         </Switch>
       </Container>
       {/* </Container> */}
-    </>
+    </div>
 
   )
 }
