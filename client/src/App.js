@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
-import { Container, Divider } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 import './App.css'
 
 import { verifyUser } from './services/auth'
