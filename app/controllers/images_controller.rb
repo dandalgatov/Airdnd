@@ -17,6 +17,7 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new(image_params)
     @image.listing = Listing.find(params[:listing_id])
+    # params[:listing_id]
 
     if @image.save
       render json: @image, status: :created
@@ -36,13 +37,14 @@ class ImagesController < ApplicationController
 
   # DELETE /listings/1/images/1
   def destroy
-    @image.destroy
+    # @image.destroy <--does not work. expects an argument
+    Image.destroy(params[:id])
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_image
-      @image = Image.where(id: params[:id], listing_id: params[:listing_id])
+      @image = Image.where(id: params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
