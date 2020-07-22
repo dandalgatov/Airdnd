@@ -20,7 +20,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "prepush": "npm run build && cd build/ && mv index.html 200.html && surge --project /Users/dandalgatov/personal_projects/Airdnd/client/build/ --domain airdnd.surge.sh && cd ..",
     "postinstall": "rm -rf .git/hooks/pre-push && node node_modules/husky/bin/install.js && rm -rf .git/hooks/pre-commit"
   },
   "eslintConfig": {
@@ -44,5 +43,10 @@
     "husky": "^4.2.5",
     "postcss-cli": "^7.1.1",
     "surge": "^0.21.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run build && cd build/ && mv index.html 200.html && surge --project /Users/dandalgatov/personal_projects/Airdnd/client/build/ --domain airdnd.surge.sh && cd .."
+    }
   }
 }
