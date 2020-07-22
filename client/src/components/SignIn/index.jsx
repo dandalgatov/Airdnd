@@ -38,7 +38,7 @@ export default function SignIn(props) {
     const handleRegister = async (e) => {
         e.preventDefault()
         const { first_name, email, password, confirm_password } = userData
-        if (regExp.test(email) == false) {
+        if (regExp.test(email) === false) {
             alert('You must enter a valid email!')
         } else if (password !== confirm_password) {
             alert('Your passwords don\'t match')
