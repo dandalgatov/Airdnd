@@ -78,8 +78,6 @@ export const getImages = async (listing_id) => {
 
 export const createImage = async (listing_id, imageData) => {
     try {
-        console.log(listing_id)
-        console.log(imageData)
         const response = await api.post(`/listings/${listing_id}/images`, { image: imageData })
         return response.data
     } catch (error) {

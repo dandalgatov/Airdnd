@@ -10,10 +10,7 @@ export default function UserProfile(props) {
     const { currentUser, setCurrentUser } = props
     const history = useHistory()
     const [userListings, setUserListings] = useState([])
-    const { id, first_name, last_name, email, phone, profile_picture, rating, } = currentUser || {}
-
-
-
+    const { id, first_name, last_name, email, phone, profile_picture } = currentUser || {}
 
     useEffect(() => {
         (async () => {
@@ -21,8 +18,6 @@ export default function UserProfile(props) {
             user && user.id && setUserListings(await getUserListings(user.id))
         })()
     }, [])
-
-    
 
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -64,7 +59,7 @@ export default function UserProfile(props) {
                                         fluid
                                         label='Last name'
                                         placeholder={last_name ? last_name : 'Last name'}
-                                        value={last_name}
+                                        value={last_name ? last_name : 'Last name'}
                                         name='last_name'
                                     />
                                 </Form.Group>
