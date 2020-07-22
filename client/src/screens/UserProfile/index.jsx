@@ -9,7 +9,7 @@ import { verifyUser } from '../../services/auth'
 export default function UserProfile(props) {
     const { currentUser, setCurrentUser } = props
     const history = useHistory()
-    const [userListings, setUserListings] = useState()
+    const [userListings, setUserListings] = useState([])
     const { id, first_name, last_name, email, phone, profile_picture, rating, } = currentUser || {}
 
 
