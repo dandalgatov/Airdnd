@@ -31,12 +31,11 @@ export default function Home(props) {
 
     return (
         <main>
-            <h1>test2</h1>
             <div style={{ height: "100vh" }}>
-                <BasicSearch
+                {/* <BasicSearch
                     neighborhoodOptions={neighborhoods}
                     setBasicSearchResults={setBasicSearchResults}
-                />
+                /> */}
                 <Segment >
                     < Carousel
                         autoPlay
