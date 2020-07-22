@@ -9,17 +9,9 @@ export default function UserProfile(props) {
     const { currentUser, setCurrentUser } = props
     const history = useHistory()
     const [userListings, setUserListings] = useState()
-    // const { id, first_name, last_name, email, phone, profile_picture, rating, } = currentUser
+    const { id, first_name, last_name, email, phone, profile_picture, rating, } = currentUser || {}
 
 
-    //Whats goiing on here??
-    const id = currentUser && currentUser.id
-    const first_name = currentUser && currentUser.first_name
-    const last_name = currentUser && currentUser.last_name
-    const email = currentUser && currentUser.email
-    const phone = currentUser && currentUser.phone
-    const profile_picture = currentUser && currentUser.profile_picture
-    
 
 
     useEffect(() => {
@@ -42,12 +34,12 @@ export default function UserProfile(props) {
 
 
 
-
+ console.log(profile_picture)
 
     return (
         <>
             <Segment>
-                <Button primary onClick={handleUserUpdate}>Update Info</Button>
+                <Button primary disabled onClick={handleUserUpdate}>Update Info</Button>
                 <Button primary disabled >Update Password</Button>
                 <Button color='green' floated='right' onClick={()=> history.push('/listings/add')}>Post Listing</Button>
             </Segment>
