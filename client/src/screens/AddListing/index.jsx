@@ -5,14 +5,14 @@ import { useParams, useHistory } from "react-router-dom"
 import { getAmenities, getListing } from '../../services/api'
 import { Form, TextArea, Grid, Segment, Button } from 'semantic-ui-react'
 import AddImage from '../../components/AddImage'
-import { createListing, editListing, deleteListing } from '../../services/api'
+import { createListing, editListing, deleteListing, createImage } from '../../services/api'
 
 
 export default function AddListing(props) {
     const history = useHistory()
     const { id } = useParams()
     const { neighborhoodOptions, currentUser } = props
-    const [activeImages, setActiveImages] = useState([])
+    const [activeImages, setActiveImages] = useState()
     // const [amenities, setAmenities] = useState([])
     const [listingData, setListingData] = useState({
         user_id: '',
@@ -60,7 +60,11 @@ export default function AddListing(props) {
     const handlePost = async () => {
         const user_id = currentUser && currentUser.id
         const newListing = { ...listingData, user_id: user_id, listing: { ...listingData.listing, published: true } }
-        createListing(newListing)
+        const savedListing = await createListing(newListing)
+        activeImages && activeImages.forEach(image => createImage(savedListing.id, image.url))
+
+
+        console.log(savedListing)
         history.push('/profile')
     }
 
