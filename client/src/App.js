@@ -21,7 +21,6 @@ export default function App() {
   const [neighborhoods, setNeighborhoods] = useState([])
   const [currentUser, setCurrentUser] = useState()
 
-  console.log(basicSearchResults)
 
 
   useEffect(() => {
