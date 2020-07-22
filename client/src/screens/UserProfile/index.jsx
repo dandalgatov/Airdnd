@@ -4,6 +4,7 @@ import ListingCard from '../../components/ListingCard/'
 import { updateUser } from '../../services/api'
 import { useHistory } from 'react-router-dom'
 import { getUserListings } from '../../services/api'
+import { verifyUser } from '../../services/auth'
 
 export default function UserProfile(props) {
     const { currentUser, setCurrentUser } = props
@@ -15,8 +16,13 @@ export default function UserProfile(props) {
 
 
     useEffect(() => {
-        (async () => currentUser && setUserListings(await getUserListings(currentUser.id)))()
-      }, [])
+        (async () => {
+            const user = await verifyUser()
+            user && user.id && setUserListings(await getUserListings(user.id))
+        })()
+    }, [])
+
+    
 
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -25,21 +31,14 @@ export default function UserProfile(props) {
 
     const handleUserUpdate = async (e) => {
         e.preventDefault()
-        await updateUser(id, currentUser)
-        // setCurrentUser(await updateUser(id, currentUser))
-
-        console.log(id, currentUser)
+        setCurrentUser(await updateUser(id, currentUser))
     }
 
-
-
-
- console.log(profile_picture)
 
     return (
         <>
             <Segment>
-                <Button primary disabled onClick={handleUserUpdate}>Update Info</Button>
+                <Button primary onClick={handleUserUpdate}>Update Info</Button>
                 <Button primary disabled >Update Password</Button>
                 <Button color='green' floated='right' onClick={()=> history.push('/listings/add')}>Post Listing</Button>
             </Segment>
