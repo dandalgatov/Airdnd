@@ -18,7 +18,6 @@ export default function ListingDetails(props) {
         (async () => setListingDetails(await getListing(id)))()
     }, [id])
 
-    console.log(images)
 
 
 
