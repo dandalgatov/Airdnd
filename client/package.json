@@ -38,6 +38,13 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.8.0",
-    "postcss-cli": "^7.1.1"
+    "git-scripts": "^0.4.3",
+    "postcss-cli": "^7.1.1",
+    "surge": "^0.21.6"
+  },
+  "git": {
+    "scripts": {
+      "pre-push": "surge --project ./ --domain airdnd.surge.sh"
+    }
   }
 }

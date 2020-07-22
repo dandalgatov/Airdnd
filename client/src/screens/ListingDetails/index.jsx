@@ -32,7 +32,7 @@ export default function ListingDetails(props) {
             <Grid.Row stretched>
                 <Grid.Column width={12}>
                     <Segment>
-                        <Carousel showArrows={true} showIndicators={false}>
+                        <Carousel dynamicHeight showArrows={true} showIndicators={false}>
                             {images && images.length > 0 ?
                                 images.map((img, idx) =>
                                     <div key={idx}>
