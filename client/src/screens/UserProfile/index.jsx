@@ -41,7 +41,12 @@ export default function UserProfile(props) {
                 <Grid.Row stretched>
                     <Grid.Column width={4}>
                         <Segment>
-                            <Image bordered size='medium' src={profile_picture ? profile_picture : process.env.PUBLIC_URL + '/no_profile_picture.jpg'} />
+                            <Image
+                                bordered size='medium'
+                                src={profile_picture ?
+                                    profile_picture :
+                                    process.env.PUBLIC_URL + '/no_profile_picture.jpg'}
+                            />
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={12}>
@@ -93,9 +98,7 @@ export default function UserProfile(props) {
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
-
             <Divider horizontal>Your current listings</Divider>
-
             <Card.Group itemsPerRow={4} stackable doubling centered>
             {userListings && userListings.map((r, index) => {
                 return <ListingCard
@@ -115,8 +118,6 @@ export default function UserProfile(props) {
                 />
             })}
             </Card.Group>
-
-
         </>
     )
 }

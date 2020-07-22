@@ -9,7 +9,10 @@ export default function SearchResults(props) {
 
     return (
         <>
-            <BasicSearch neighborhoodOptions={neighborhoods} setBasicSearchResults={setBasicSearchResults} />
+            <BasicSearch
+                neighborhoodOptions={neighborhoods}
+                setBasicSearchResults={setBasicSearchResults}
+            />
             {basicSearchResults ?
                 <Card.Group itemsPerRow={4} stackable doubling centered>
                     {basicSearchResults &&
