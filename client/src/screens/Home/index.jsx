@@ -31,7 +31,7 @@ export default function Home(props) {
 
     return (
         <main>
-            <h1>test</h1>
+            <h1>test2</h1>
             <div style={{ height: "100vh" }}>
                 <BasicSearch
                     neighborhoodOptions={neighborhoods}
