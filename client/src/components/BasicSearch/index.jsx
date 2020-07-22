@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, Segment } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import { getSearchResults } from '../../services/api'
 
@@ -62,53 +62,53 @@ export default function BasicSearch(props) {
 
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group widths='equal'>
-                <Form.Select
-                    width={6}
-                    fluid
-                    name="neighborhood_id"
-                    options={neighborhoodOptions}
-                    placeholder='Neighborhoods'
-                    onChange={handleChange}
-                />
-                <Form.Select
-                    width={4}
-                    fluid
-                    name="min_rent"
-                    options={rentOptions}
-                    placeholder='$Minimum'
-                    onChange={handleChange}
-                />
-                <Form.Select
-                    width={4}
-                    fluid
-                    name="max_rent"
-                    options={rentOptions}
-                    placeholder='$Maximum'
-                    onChange={handleChange}
-                />
-                <Form.Select
-                    width={4}
-                    fluid
-                    name="min_beds"
-                    options={bedOptions}
-                    placeholder='Min Beds'
-                    onChange={handleChange}
-                />
-                <Form.Select
-                    width={4}
-                    fluid
-                    name="max_beds"
-                    options={bedOptions}
-                    placeholder='Max Beds'
-                    onChange={handleChange}
-                />
-                <Button basic color="blue">Advanced</Button>
-                <Button type="submit" primary>Submit</Button>
-            </Form.Group>
-
-
-        </Form>
+            <Segment >
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group widths='equal'>
+                        <Form.Select
+                            width={6}
+                            fluid
+                            name="neighborhood_id"
+                            options={neighborhoodOptions}
+                            placeholder='Neighborhoods'
+                            onChange={handleChange}
+                        />
+                        <Form.Select
+                            width={4}
+                            fluid
+                            name="min_rent"
+                            options={rentOptions}
+                            placeholder='$Minimum'
+                            onChange={handleChange}
+                        />
+                        <Form.Select
+                            width={4}
+                            fluid
+                            name="max_rent"
+                            options={rentOptions}
+                            placeholder='$Maximum'
+                            onChange={handleChange}
+                        />
+                        <Form.Select
+                            width={4}
+                            fluid
+                            name="min_beds"
+                            options={bedOptions}
+                            placeholder='Min Beds'
+                            onChange={handleChange}
+                        />
+                        <Form.Select
+                            width={4}
+                            fluid
+                            name="max_beds"
+                            options={bedOptions}
+                            placeholder='Max Beds'
+                            onChange={handleChange}
+                        />
+                        <Button basic color="blue">Advanced</Button>
+                        <Button type="submit" primary>Submit</Button>
+                    </Form.Group>
+                </Form>
+            </Segment>
     )
 }
