@@ -1,7 +1,7 @@
 import React from 'react'
-import BasicSearch from '../../components/BasicSearch'
-import { Image, Segment, Divider, Button, Header, Icon, Statistic } from 'semantic-ui-react'
+import { Segment, Icon, Statistic } from 'semantic-ui-react'
 import { Carousel } from 'react-responsive-carousel'
+import BasicSearch from '../../components/BasicSearch'
 
 const carouselItems = [
     {
@@ -26,21 +26,16 @@ const carouselItems = [
     }
 ]
 
-
-
-
 export default function Home(props) {
-
     const { setBasicSearchResults, neighborhoods } = props
-
-
-
 
     return (
         <main>
             <div style={{ height: "100vh" }}>
-
-                <BasicSearch neighborhoodOptions={neighborhoods} setBasicSearchResults={setBasicSearchResults} />
+                <BasicSearch
+                    neighborhoodOptions={neighborhoods}
+                    setBasicSearchResults={setBasicSearchResults}
+                />
                 <Segment >
                     < Carousel
                         autoPlay
@@ -52,13 +47,10 @@ export default function Home(props) {
                         stopOnHover={false}
                         interval={6000}
                         transitionTime={600}
-
-
-
                     >
                         {carouselItems && carouselItems.length > 0 ?
                             carouselItems.map((item, idx) =>
-                                <div style={{ maxHeight: "70vh", backgroundColor: 'white' }}>
+                                <div key={idx} style={{ maxHeight: "70vh", backgroundColor: 'white' }}>
                                     <Statistic.Group size='mini' widths='two'>
                                         <Statistic>
                                             <Statistic.Value text>
@@ -67,23 +59,27 @@ export default function Home(props) {
                                         </Statistic>
                                         <Statistic>
                                             <Statistic.Value text>
-                                                <Icon name='chart bar outline' /> {item.listings} new listings
+                                                <Icon name='chart bar outline' />
+                                                {item.listings} new listings
                                             </Statistic.Value>
                                         </Statistic>
                                     </Statistic.Group>
-                                    <img style={{display: 'block', objectFit: 'none'}}alt={`image ${idx + 1}`} src={process.env.PUBLIC_URL + item.img} />
-                                </div>)
-
-                            :
+                                    <img
+                                        style={{ display: 'block', objectFit: 'none' }}
+                                        src={process.env.PUBLIC_URL + item.img}
+                                        alt={` ${idx + 1}`}
+                                    />
+                                </div>) :
                             <div>
-                                <img alt="No Image" src={process.env.PUBLIC_URL + '/no-image-found.png'} />
+                                <img
+                                    alt="No Content"
+                                    src={process.env.PUBLIC_URL + '/no-image-found.png'}
+                                />
                             </div>
                         }
                     </Carousel>
                 </Segment>
-
             </div>
-
         </main >
     )
 }
