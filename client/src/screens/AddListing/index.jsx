@@ -59,13 +59,18 @@ export default function AddListing(props) {
     }, [])
 
     const handlePost = async () => {
-        const user_id = currentUser && currentUser.id
-        const newListing = { ...listingData, user_id: user_id, listing: { ...listingData.listing, published: true } }
-        const savedListing = await createListing(newListing)
+        const { address, apt_num, beds, baths, rent } = listingData.listing
+        const { neighborhood_id } = listingData
+        if (address && apt_num && neighborhood_id && beds && baths && rent) {
+            const user_id = currentUser && currentUser.id
+            const newListing = { ...listingData, user_id: user_id, listing: { ...listingData.listing, published: true } }
+            const savedListing = await createListing(newListing)
+            activeImages.forEach(image => createImage(savedListing.id, image))
+            history.push('/profile')
+        }else {
+            alert('Please fill out all the required fields.')
+        }
 
-        activeImages.forEach(image => createImage(savedListing.id, image))
-
-        history.push('/profile')
     }
 
     const handleEdit = async () => {
@@ -73,8 +78,7 @@ export default function AddListing(props) {
         history.push('/profile')
     }
 
-    const handleDelete = async (e) => {
-        // e.preventDefault()
+    const handleDelete = async () => {
         await deleteListing(id)
         history.push('/profile')
     }
@@ -132,6 +136,7 @@ export default function AddListing(props) {
                                     placeholder='Address'
                                     name='address'
                                     label='Address'
+                                    required
                                     value={listingData.listing.address}
                                     onChange={handleChange} width={12}
                                 />
@@ -139,6 +144,7 @@ export default function AddListing(props) {
                                     placeholder='Apt#'
                                     name='apt_num'
                                     label='Apt#'
+                                    required
                                     value={listingData.listing.apt_num}
                                     onChange={handleChange} width={6}
                                 />
@@ -148,6 +154,7 @@ export default function AddListing(props) {
                                     placeholder='Neighborhoods'
                                     name="neighborhood_id"
                                     label='Neighborhoods'
+                                    required
                                     value={listingData.neighborhood_id}
                                     options={neighborhoodOptions}
                                     onChange={handleChange}
@@ -166,6 +173,7 @@ export default function AddListing(props) {
                                     placeholder='Beds'
                                     name='beds'
                                     label='Beds'
+                                    required
                                     value={listingData.listing.beds}
                                     options={bedOptions}
                                     onChange={handleChange}
@@ -175,6 +183,7 @@ export default function AddListing(props) {
                                     placeholder='Baths'
                                     name='baths'
                                     label='Baths'
+                                    required
                                     value={listingData.listing.baths}
                                     options={bathOptions}
                                     onChange={handleChange}
@@ -193,6 +202,7 @@ export default function AddListing(props) {
                                     placeholder='Rent'
                                     name='rent'
                                     label='Rent'
+                                    required
                                     value={listingData.listing.rent}
                                     onChange={handleChange} width={6}
                                 />
