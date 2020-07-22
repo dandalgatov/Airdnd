@@ -33,12 +33,15 @@ export default function Header(props) {
 
     return (
 
-        <div>
-            <Menu secondary attached='top' color='grey' inverted >
+
+            <Menu secondary stackable attached='bottom' style={{backgroundColor: 'white'}} >
 
                 <Menu.Item onClick={() => history.push('/')}>
-                    <Image src={process.env.PUBLIC_URL + '/airdnd_logo.png'} size='mini' />
+                    <Image src={process.env.PUBLIC_URL + '/airdnd_logo.png'} size='small' />
                 </Menu.Item>
+
+                
+
 
                 <Menu.Menu position='right'>
                     <Menu.Item>
@@ -74,7 +77,7 @@ export default function Header(props) {
                 </Menu.Menu>
 
             </Menu>
-        </div>
+
 
     )
 }
